@@ -3,7 +3,6 @@
 import os
 import csv
 total_net_list = []
-total_change = []
 change =[]
 i=0 
 
@@ -17,30 +16,43 @@ with open(csvpath, newline='') as csvfile:
         total_net_list.append(int(row[1]))
         months_count = len(total_net_list)
         total_net=sum(total_net_list)
-        total_change.append(row[1])
-    for i in range(len(total_change)-1): 
-            
-        change.append(int(total_change[i]) - int(total_change[i+1]))
-        average_change=sum(change) /len(change)
-        average_change=round(average_change,2)
+        
+    for i in range(len(total_net_list)-1):
+            change.append(int(total_net_list[i+1]) - int(total_net_list[i]))
+            average_change=sum(change) /len(change)
+            average_change=round(average_change,2)
       
         
-        greatest_increase=int(max(change))
-        greatest_decrease=int(min(change))
+            greatest_increase=int(max(change))
+            greatest_decrease=int(min(change))
+
     
-    with open(output_file, "w", newline='') as textfile:
+    
 
-        print("Financial Analysis", file=textfile)
-        print("-----------------------------------------------", file=textfile)
-        print("Total Months:  " + str(months_count),file=textfile)
-        print(f'Total:, (${total_net}',file=textfile)
-        print(f'Average  Change: {average_change}', file=textfile)
-        print(f'Greatest Increase in Profits: {greatest_increase}',file=textfile)  
-        print(f'Greatest Decrease in Profits: {greatest_decrease}',file=textfile)
-        print("-----------------------------------------------", file=textfile)
+    print("Financial Analysis")
+    print("-----------------------------------------------")
+    print("Total Months:  " + str(months_count))
+    print(f'Total:, ${total_net}')
 
-with open(output_file, newline='') as csvfile:
-    csvreader = csv.reader(csvfile, delimiter=',')
-    for row in csvreader:
-        print(row)
         
+    print(f'Average  Change: ${average_change}')
+    print(f'Greatest Increase in Profits: ${greatest_increase}') 
+    print(f'Greatest Decrease in Profits: ${greatest_decrease}')
+    print("-----------------------------------------------")
+    
+    
+with open(output_file,"w", newline='') as textfile:
+    writer=csv.writer(textfile)
+
+    print("Financial Analysis", file=textfile)
+    print("-----------------------------------------------", file=textfile)
+    print("Total Months:  " + str(months_count), file=textfile)
+    print(f'Total:, ${total_net}', file=textfile)
+
+        
+    print(f'Average  Change: ${average_change}', file=textfile)
+    print(f'Greatest Increase in Profits: ${greatest_increase}', file=textfile)
+    print(f'Greatest Decrease in Profits: ${greatest_decrease}', file=textfile)
+    print("-----------------------------------------------", file=textfile)
+    
+       

@@ -28,31 +28,42 @@ for candidate in candidate_votes:
     vote_percent=float(votes/total_votes)*100
     vote_percent=round(vote_percent,2)
           
-if (votes>winning_count):
-    winning_count=votes
-    winning_candidate=candidate
+    if (votes>winning_count):
+        winning_count=votes
+        winning_candidate=candidate
         
 
-with open(output_file, "w") as txt_file:
-    print("Election Results", file=txt_file)
-    print("-----------------------------------", file=txt_file)
-    print(f'Total Votes: {total_votes}', file=txt_file)
-    print("-----------------------------------", file=txt_file)
+
+print("\nElection Results\n")
+print("-----------------------------------\n")
+print(f'Total Votes: {total_votes}\n')
+print("-----------------------------------\n")
+for candidate in candidate_votes:
+    votes=candidate_votes.get(candidate)
+    vote_percent=float(votes/total_votes)*100
+    vote_percent=round(vote_percent,2)
+        
+    print(candidate, vote_percent, votes)
+print("\n-----------------------------------\n")
+print(f'Winner: {winning_candidate}\n')
+print("-----------------------------------")
+
+with open(output_file,"w", newline='') as txt_file:
+    writer=csv.writer(txt_file)
+
+    print("\nElection Results\n", file=txt_file)
+    print("-----------------------------------\n", file=txt_file)
+    print(f'Total Votes: {total_votes}\n', file=txt_file)
+    print("-----------------------------------\n", file=txt_file)
     for candidate in candidate_votes:
         votes=candidate_votes.get(candidate)
         vote_percent=float(votes/total_votes)*100
         vote_percent=round(vote_percent,2)
         
         print((candidate, vote_percent, votes), file=txt_file)
+    print("\n-----------------------------------\n", file=txt_file)
+    print(f'Winner: {winning_candidate}\n', file=txt_file)
     print("-----------------------------------", file=txt_file)
-    print(f'Winner: {winning_candidate}', file=txt_file)
-    print("-----------------------------------", file=txt_file)
-
-with open(output_file, newline='') as csvfile:
-    csvreader = csv.reader(csvfile, delimiter=',')
-    for row in csvreader:
-        print (row)
-
 
 
 
